@@ -1,5 +1,7 @@
 package com.auroratide.xest;
 
+import com.auroratide.xest.assert.Assertion;
+
 using Lambda;
 
 class Xest {
@@ -8,6 +10,10 @@ class Xest {
 
   private final function example(name:String, f:() -> Void) {
     f();
+  }
+
+  private final function assert<T>(actual:T):Assertion<T> {
+    return new Assertion<T>(actual);
   }
 
   private final inline function it(name:String, f:() -> Void)

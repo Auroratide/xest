@@ -1,7 +1,16 @@
 package com.auroratide.xest;
 
-final class Xest {
-  public static function run(classes:Array<Class<Dynamic>>) {
-    
+using Lambda;
+
+class Xest {
+
+  public function run() {}
+
+  private final function example(name:String, f:() -> Void) {
+    f();
+  }
+
+  public static function start(suites:Array<Xest>) {
+    suites.iter(s -> s.run());
   }
 }

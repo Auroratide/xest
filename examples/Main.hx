@@ -1,9 +1,9 @@
 package ;
 
-import com.auroratide.xest.Xest.run;
+import com.auroratide.xest.Xest.start;
 
 class Main {
   public static function main() {
-    run([ RunningTests ]);
+    start([ new RunningTests() ]);
   }
 }

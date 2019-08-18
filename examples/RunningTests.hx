@@ -10,12 +10,14 @@ class RunningTests extends Xest {
       itRan[0] = true;
     });
 
-    it("allows 'it' to define tests also", () -> {
-      itRan[1] = true;
-    });
+    describe("Aliases", () -> {
+      it("allows 'it' to define tests also", () -> {
+        itRan[1] = true;
+      });
 
-    test("allows 'test' to define tests also", () -> {
-      itRan[2] = true;
+      test("allows 'test' to define tests also", () -> {
+        itRan[2] = true;
+      });
     });
   }
 }

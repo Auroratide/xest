@@ -10,6 +10,11 @@ final class Example {
   }
 
   public function run() {
-    test();
+    try {
+        test();
+        Sys.println('\u001B[32m✓\u001B[0m $name');
+      } catch(e:Dynamic) {
+        Sys.println('\u001B[31m✗ $name\u001B[0m');
+      }
   }
 }

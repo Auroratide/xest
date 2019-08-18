@@ -1,0 +1,5 @@
+package ;
+
+class RunningTests {
+
+}

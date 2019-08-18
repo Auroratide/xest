@@ -10,6 +10,12 @@ class Xest {
     f();
   }
 
+  private final inline function it(name:String, f:() -> Void)
+    example(name, f);
+
+  private final inline function test(name:String, f:() -> Void)
+    example(name, f);
+
   public static function start(suites:Array<Xest>) {
     suites.iter(s -> s.run());
   }

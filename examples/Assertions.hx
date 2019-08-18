@@ -3,9 +3,7 @@ package ;
 import com.auroratide.xest.Xest;
 
 class Assertions extends Xest {
-  public function new() {}
-
-  override function run() {
+  public function new() {
     example("asserting two primitives are the same", () -> {
       assert(1).is(1);
       assert(true).is(true);

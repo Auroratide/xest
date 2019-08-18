@@ -5,11 +5,14 @@ import com.auroratide.xest.assert.Assertion;
 using Lambda;
 
 class Xest {
+  private final __examples:Map<String, () -> Void> = [];
 
-  public function run() {}
+  private final function run() {
+    __examples.iter(it -> it());
+  }
 
   private final function example(name:String, f:() -> Void) {
-    f();
+    __examples[name] = f;
   }
 
   private final function assert<T>(actual:T):Assertion<T> {

@@ -9,8 +9,12 @@ class Xest {
 
   private final function run() {
     for(name => test in __examples) {
-      test();
-      Sys.println('\u001B[32m✓\u001B[0m $name');
+      try {
+        test();
+        Sys.println('\u001B[32m✓\u001B[0m $name');
+      } catch(e:Dynamic) {
+        Sys.println('\u001B[31m✗ $name\u001B[0m');
+      }
     }
   }
 

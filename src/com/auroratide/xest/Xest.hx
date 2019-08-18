@@ -8,7 +8,10 @@ class Xest {
   private final __examples:Map<String, () -> Void> = [];
 
   private final function run() {
-    __examples.iter(it -> it());
+    for(name => test in __examples) {
+      test();
+      Sys.println('\u001B[32m✓\u001B[0m $name');
+    }
   }
 
   private final function example(name:String, f:() -> Void) {

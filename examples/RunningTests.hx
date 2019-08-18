@@ -2,14 +2,10 @@ package ;
 
 import com.auroratide.xest.Xest;
 
-using Lambda;
-
 class RunningTests extends Xest {
-  public function new() {}
+  public final itRan = [ false, false, false ];
 
-  override function run() {
-    var itRan = [ false, false, false ];
-
+  public function new() {
     example("how to create a test", () -> {
       itRan[0] = true;
     });
@@ -21,8 +17,5 @@ class RunningTests extends Xest {
     test("allows 'test' to define tests also", () -> {
       itRan[2] = true;
     });
-
-    if(!itRan.foreach(b -> b))
-      throw "The example did not run, and that's bad.";
   }
 }

@@ -1,25 +1,26 @@
 package com.auroratide.xest;
 
 import com.auroratide.xest.assert.Assertion;
+import com.auroratide.xest.run.Example;
 
 using Lambda;
 
 class Xest {
-  private final __examples:Map<String, () -> Void> = [];
+  private final __examples:Array<Example> = [];
 
   private final function run() {
-    for(name => test in __examples) {
+    for(example in __examples) {
       try {
-        test();
-        Sys.println('\u001B[32m✓\u001B[0m $name');
+        example.run();
+        Sys.println('\u001B[32m✓\u001B[0m ${example.name}');
       } catch(e:Dynamic) {
-        Sys.println('\u001B[31m✗ $name\u001B[0m');
+        Sys.println('\u001B[31m✗ ${example.name}\u001B[0m');
       }
     }
   }
 
   private final function example(name:String, f:() -> Void) {
-    __examples[name] = f;
+    __examples.push(new Example(name, f));
   }
 
   private final function assert<T>(actual:T):Assertion<T> {

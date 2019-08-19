@@ -10,7 +10,8 @@ class Main {
     testFailures();
 
     start([
-      new Assertions()
+      new Assertions(),
+      new UsingTestHooks()
     ]);
   }
 

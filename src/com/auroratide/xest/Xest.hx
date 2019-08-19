@@ -27,6 +27,10 @@ class Xest {
     __group = formerGroup;
   }
 
+  private final function beforeEach(f:() -> Void) {
+    __group.beforeEach(f);
+  }
+
   private final function assert<T>(actual:T):Assertion<T> {
     return new Assertion<T>(actual);
   }

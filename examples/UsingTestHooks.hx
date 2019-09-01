@@ -20,6 +20,26 @@ class UsingTestHooks extends Xest {
         assert(n).is(5);
         n = 0;
       });
+
+      describe("nested before block", () -> {
+        var m = 0;
+
+        beforeEach(() -> {
+          m = 6;
+        });
+
+        example("m becomes 6 before each test", () -> {
+          assert(n + m).is(11);
+          n = 0;
+          m = 0;
+        });
+
+        example("m becomes 6 before each test", () -> {
+          assert(n + m).is(11);
+          n = 0;
+          m = 0;
+        });
+      });
     });
   }
 }

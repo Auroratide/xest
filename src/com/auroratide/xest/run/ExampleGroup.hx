@@ -6,8 +6,7 @@ final class ExampleGroup {
   public final name:String;
   private final groups:Array<ExampleGroup> = [];
   private final examples:Array<Example> = [];
-  private final beforeHooks:Array<() -> Void> = [];
-  private final afterHooks:Array<() -> Void> = [];
+  private final hooks:Array<Hook> = [];
 
   public function new(name:String) {
     this.name = name;
@@ -15,9 +14,15 @@ final class ExampleGroup {
 
   public function run() {
     for(example in examples) {
-      beforeHooks.iter(f -> f());
+      hooks.iter(h -> switch(h) {
+        case BeforeEach(f): f();
+        case _:
+      });
       example.run();
-      afterHooks.iter(f -> f());
+      hooks.iter(h -> switch(h) {
+        case AfterEach(f): f();
+        case _:
+      });
     }
     
     for(group in groups) {
@@ -30,18 +35,12 @@ final class ExampleGroup {
   }
 
   public function group(value:ExampleGroup) {
-    beforeHooks.iter(h -> value.beforeEach(h));
-    afterHooks.iter(h -> value.afterEach(h));
+    hooks.iter(h -> value.hook(h));
     groups.push(value);
   }
 
-  public function beforeEach(f:() -> Void) {
-    beforeHooks.push(f);
-    groups.iter(g -> g.beforeEach(f));
-  }
-
-  public function afterEach(f:() -> Void) {
-    afterHooks.push(f);
-    groups.iter(g -> g.afterEach(f));
+  public function hook(h:Hook) {
+    hooks.push(h);
+    groups.iter(g -> g.hook(h));
   }
 }

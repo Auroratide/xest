@@ -28,11 +28,11 @@ class Xest {
   }
 
   private final function beforeEach(f:() -> Void) {
-    __group.beforeEach(f);
+    __group.hook(BeforeEach(f));
   }
 
   private final function afterEach(f:() -> Void) {
-    __group.afterEach(f);
+    __group.hook(AfterEach(f));
   }
 
   private final function assert<T>(actual:T):Assertion<T> {

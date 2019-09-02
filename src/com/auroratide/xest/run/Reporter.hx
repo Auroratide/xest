@@ -3,57 +3,93 @@ package com.auroratide.xest.run;
 using Lambda;
 using StringTools;
 
-class Reporter {
-  public function new() {}
+class Reporter extends Printer {
+  public function new() {
+    super();
+  }
 
   public function report(set:ResultSet) {
-    Sys.println("");
+    newline.print();
     summary(set, 0);
 
     if(set.result.match(Failure(_, _))) {
-      Sys.println("");
-      Sys.println(red("Some tests failed:"));
-      Sys.println("");
+      newline.print();
+      newline.print();
+      bold.red.print("*************************************");
+      bold.red.print("Some tests failed:");
+      bold.red.print("*************************************");
+      newline.print();
       failures(set, 0);
     }
   }
 
   private function summary(set:ResultSet, spaces:Int) {
-    Sys.println('${pad(spaces)}${title(set.name)}');
+    pad(spaces).bold.print(set.name);
     set.results.iter(result -> switch(result) {
-      case Success(name): Sys.println('${pad(spaces + 2)}${passed(name)}');
-      case Failure(name): Sys.println('${pad(spaces + 2)}${failed(name)}');
+      case Success(name): pad(spaces + 2).passed.grey.print(name);
+      case Failure(name): pad(spaces + 2).failed.red.print(name);
     });
     set.sets.iter(s -> summary(s, spaces + 2));
   }
 
   private function failures(set:ResultSet, spaces:Int) {
-    Sys.println('${pad(spaces)}${red(title(set.name))}');
+    pad(spaces).bold.red.print(set.name);
     set.results.iter(result -> switch(result) {
       case Failure(name, reason):
-        Sys.println('${pad(spaces + 2)}${failed(name)}');
-        Sys.println("");
-        Sys.println('${pad(spaces + 4)}${red(reason)}');
-        Sys.println("");
-        Sys.println("");
+        pad(spaces + 2).failed.red.print(name);
+        newline.print();
+        pad(spaces + 4).red.print(reason);
+        newline.print();
+        newline.print();
       case _:
     });
     set.sets.iter(s -> failures(s, spaces + 2));
   }
+}
 
-  private function pad(spaces:Int):String {
-    return "".rpad(" ", spaces);
+private class Printer {
+  private final prepend:String;
+  private final append:String;
+
+  private var newline(get, never):Printer;
+  private var bold(get, never):Printer;
+  private var red(get, never):Printer;
+  private var green(get, never):Printer;
+  private var grey(get, never):Printer;
+  private var passed(get, never):Printer;
+  private var failed(get, never):Printer;
+
+  public function new(prepend:String = "", append:String = "") {
+    this.prepend = prepend;
+    this.append = append;
   }
 
-  private function title(s:String):String
-    return '\u001B[1m$s\u001B[0m';
+  private function print(?value:String) {
+    Sys.println('$prepend${value != null ? value : ""}$append');
+  }
 
-  private function passed(s:String):String
-    return '\u001B[32m✓\u001B[90m $s\u001B[0m';
+  private function pad(spaces:Int):Printer {
+    return new Printer(prepend + "".rpad(" ", spaces), append);
+  }
+
+  private function get_newline():Printer
+    return new Printer(prepend, append);
   
-  private function failed(s:String):String
-    return red('✗ $s');
-  
-  private function red(s:String):String
-    return '\u001B[31m$s\u001B[0m';
+  private function get_bold():Printer
+    return new Printer('$prepend\u001B[1m', '\u001B[0m$append');
+
+  private function get_red():Printer
+    return new Printer('$prepend\u001B[31m', '\u001B[0m$append');
+
+  private function get_green():Printer
+    return new Printer('$prepend\u001B[32m', '\u001B[0m$append');
+
+  private function get_grey():Printer
+    return new Printer('$prepend\u001B[90m', '\u001B[0m$append');
+
+  private function get_passed():Printer
+    return new Printer('$prepend\u001B[32m✓\u001B[0m ', append);
+
+  private function get_failed():Printer
+    return new Printer('$prepend\u001B[31m✗\u001B[0m ', append);
 }

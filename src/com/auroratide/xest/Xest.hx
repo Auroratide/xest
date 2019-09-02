@@ -31,11 +31,11 @@ class Xest {
     __group = formerGroup;
   }
 
-  private final function beforeEach(f:() -> Void) {
+  private final function before(f:() -> Void) {
     __group.hook(BeforeEach(f));
   }
 
-  private final function afterEach(f:() -> Void) {
+  private final function after(f:() -> Void) {
     __group.hook(AfterEach(f));
   }
 
@@ -48,6 +48,12 @@ class Xest {
 
   private final inline function test(name:String, f:() -> Void)
     example(name, f);
+
+  private final function beforeEach(f:() -> Void)
+    before(f);
+  
+  private final function afterEach(f:() -> Void)
+    after(f);
 
   public static function start(suites:Array<Xest>) {
     final reporter = new Reporter();

@@ -6,7 +6,7 @@ class AfterEach extends Xest {
   public function new() {
     var n = 5;
 
-    afterEach(() -> {
+    after(() -> {
       n = 5;
     });
 
@@ -24,7 +24,7 @@ class AfterEach extends Xest {
     describe("nested after block", () -> {
       var m = 6;
 
-      afterEach(() -> {
+      after(() -> {
         m = 6;
       });
 
@@ -59,7 +59,7 @@ class AfterEach extends Xest {
         });
       });
 
-      afterEach(() -> {
+      after(() -> {
         m = 6;
       });
     });

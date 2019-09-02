@@ -6,7 +6,7 @@ class BeforeEach extends Xest {
   public function new() {
     var n = 0;
 
-    beforeEach(() -> {
+    before(() -> {
       n = 5;
     });
 
@@ -24,7 +24,7 @@ class BeforeEach extends Xest {
     describe("nested before block", () -> {
       var m = 0;
 
-      beforeEach(() -> {
+      before(() -> {
         m = 6;
       });
 
@@ -53,7 +53,7 @@ class BeforeEach extends Xest {
         });
       });
 
-      beforeEach(() -> {
+      before(() -> {
         m = 6;
       });
     });

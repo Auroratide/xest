@@ -3,14 +3,18 @@ package com.auroratide.xest;
 import com.auroratide.xest.assert.Assertion;
 import com.auroratide.xest.run.Example;
 import com.auroratide.xest.run.ExampleGroup;
+import com.auroratide.xest.run.Reporter;
 
 using Lambda;
+using Type;
 
 class Xest {
   private var __group:ExampleGroup = new ExampleGroup("");
 
-  private final function run() {
-    __group.run();
+  private final function run(reporter:Reporter) {
+    final classpath = this.getClass().getClassName().split(".");
+    __group.name = classpath[classpath.length - 1];
+    reporter.report(__group.run());
   }
 
   private final function example(name:String, f:() -> Void) {
@@ -46,6 +50,7 @@ class Xest {
     example(name, f);
 
   public static function start(suites:Array<Xest>) {
-    suites.iter(s -> s.run());
+    final reporter = new Reporter();
+    suites.iter(s -> s.run(reporter));
   }
 }

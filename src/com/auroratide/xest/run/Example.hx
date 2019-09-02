@@ -9,12 +9,12 @@ final class Example {
     this.test = test;
   }
 
-  public function run() {
-    try {
+  public function run():Result {
+    return try {
         test();
-        Sys.println('\u001B[32m✓\u001B[0m $name');
+        Success(name);
       } catch(e:Dynamic) {
-        Sys.println('\u001B[31m✗ $name\u001B[0m');
+        Failure(name);
       }
   }
 }

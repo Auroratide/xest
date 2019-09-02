@@ -3,7 +3,7 @@ package com.auroratide.xest.run;
 using Lambda;
 
 final class ExampleGroup {
-  public final name:String;
+  public var name:String;
   private final groups:Array<ExampleGroup> = [];
   private final examples:Array<Example> = [];
   private final hooks:Array<Hook> = [];
@@ -12,22 +12,26 @@ final class ExampleGroup {
     this.name = name;
   }
 
-  public function run() {
-    for(example in examples) {
+  public function run():ResultSet {
+    final results = examples.map(example -> {
       hooks.iter(h -> switch(h) {
         case BeforeEach(f): f();
         case _:
       });
-      example.run();
+
+      final result = example.run();
+
       hooks.iter(h -> switch(h) {
         case AfterEach(f): f();
         case _:
       });
-    }
+
+      return result;
+    });
+
+    final sets = groups.map(g -> g.run());
     
-    for(group in groups) {
-      group.run();
-    }
+    return new ResultSet(name, results, sets);
   }
 
   public function example(value:Example) {

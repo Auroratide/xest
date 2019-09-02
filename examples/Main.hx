@@ -11,7 +11,8 @@ class Main {
 
     start([
       new assertions.Assertions(),
-      new running.hooks.BeforeEach()
+      new running.hooks.BeforeEach(),
+      new running.hooks.AfterEach()
     ]);
   }
 

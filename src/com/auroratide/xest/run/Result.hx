@@ -1,6 +1,6 @@
 package com.auroratide.xest.run;
 
 enum Result {
-  Success(?message:String);
-  Failure(?message:String);
+  Success(?name:String);
+  Failure(?name:String, ?reason:Dynamic);
 }

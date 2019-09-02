@@ -8,16 +8,37 @@ class Reporter {
 
   public function report(set:ResultSet) {
     Sys.println("");
-    reportWithSpaces(set, 0);
+    summary(set, 0);
+
+    if(set.result.match(Failure(_, _))) {
+      Sys.println("");
+      Sys.println(red("Some tests failed:"));
+      Sys.println("");
+      failures(set, 0);
+    }
   }
 
-  private function reportWithSpaces(set:ResultSet, spaces:Int) {
-    Sys.println('${pad(spaces)}${title(set.message)}');
+  private function summary(set:ResultSet, spaces:Int) {
+    Sys.println('${pad(spaces)}${title(set.name)}');
     set.results.iter(result -> switch(result) {
-      case Success(message): Sys.println('${pad(spaces + 2)}${passed(message)}');
-      case Failure(message): Sys.println('${pad(spaces + 2)}${failed(message)}');
+      case Success(name): Sys.println('${pad(spaces + 2)}${passed(name)}');
+      case Failure(name): Sys.println('${pad(spaces + 2)}${failed(name)}');
     });
-    set.sets.iter(s -> reportWithSpaces(s, spaces + 2));
+    set.sets.iter(s -> summary(s, spaces + 2));
+  }
+
+  private function failures(set:ResultSet, spaces:Int) {
+    Sys.println('${pad(spaces)}${red(title(set.name))}');
+    set.results.iter(result -> switch(result) {
+      case Failure(name, reason):
+        Sys.println('${pad(spaces + 2)}${failed(name)}');
+        Sys.println("");
+        Sys.println('${pad(spaces + 4)}${red(reason)}');
+        Sys.println("");
+        Sys.println("");
+      case _:
+    });
+    set.sets.iter(s -> failures(s, spaces + 2));
   }
 
   private function pad(spaces:Int):String {
@@ -31,5 +52,8 @@ class Reporter {
     return '\u001B[32m✓\u001B[90m $s\u001B[0m';
   
   private function failed(s:String):String
-    return '\u001B[31m✗ $s\u001B[0m';
+    return red('✗ $s');
+  
+  private function red(s:String):String
+    return '\u001B[31m$s\u001B[0m';
 }

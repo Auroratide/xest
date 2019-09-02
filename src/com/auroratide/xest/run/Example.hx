@@ -14,7 +14,7 @@ final class Example {
         test();
         Success(name);
       } catch(e:Dynamic) {
-        Failure(name);
+        Failure(name, e);
       }
   }
 }

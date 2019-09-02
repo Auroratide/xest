@@ -14,7 +14,7 @@ class Xest {
   }
 
   private final function example(name:String, f:() -> Void) {
-    __group.examples.push(new Example(name, f));
+    __group.example(new Example(name, f));
   }
 
   private final function describe(name:String, f:() -> Void) {
@@ -23,8 +23,7 @@ class Xest {
 
     f();
 
-    __group.propogate();
-    formerGroup.groups.push(__group);
+    formerGroup.group(__group);
     __group = formerGroup;
   }
 

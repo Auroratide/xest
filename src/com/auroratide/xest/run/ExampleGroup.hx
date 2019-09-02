@@ -4,9 +4,9 @@ using Lambda;
 
 final class ExampleGroup {
   public final name:String;
-  public final groups:Array<ExampleGroup> = [];
-  public final examples:Array<Example> = [];
-  private var beforeHooks:Array<() -> Void> = [];
+  private final groups:Array<ExampleGroup> = [];
+  private final examples:Array<Example> = [];
+  private final beforeHooks:Array<() -> Void> = [];
 
   public function new(name:String) {
     this.name = name;
@@ -23,14 +23,17 @@ final class ExampleGroup {
     }
   }
 
-  public function beforeEach(f:() -> Void) {
-    beforeHooks.push(f);
+  public function example(value:Example) {
+    examples.push(value);
   }
 
-  public function propogate() {
-    groups.iter(g -> {
-      g.beforeHooks = beforeHooks.concat(g.beforeHooks);
-      g.propogate();
-    });
+  public function group(value:ExampleGroup) {
+    beforeHooks.iter(h -> value.beforeEach(h));
+    groups.push(value);
+  }
+
+  public function beforeEach(f:() -> Void) {
+    beforeHooks.push(f);
+    groups.iter(g -> g.beforeEach(f));
   }
 }

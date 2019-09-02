@@ -1,4 +1,4 @@
-package ;
+package running;
 
 import com.auroratide.xest.Xest;
 

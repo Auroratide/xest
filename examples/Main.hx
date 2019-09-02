@@ -10,13 +10,13 @@ class Main {
     testFailures();
 
     start([
-      new Assertions(),
-      new UsingTestHooks()
+      new assertions.Assertions(),
+      new running.hooks.BeforeEach()
     ]);
   }
 
   private static function testTheTestRunner() {
-    final test = new RunningTests();
+    final test = new running.RunningTests();
 
     start([ test ]);
 
@@ -25,7 +25,7 @@ class Main {
   }
 
   private static function testFailures() {
-    final test = new Failures();
+    final test = new running.Failures();
 
     try {
       start([ test ]);

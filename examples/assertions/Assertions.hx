@@ -1,4 +1,4 @@
-package ;
+package assertions;
 
 import com.auroratide.xest.Xest;
 

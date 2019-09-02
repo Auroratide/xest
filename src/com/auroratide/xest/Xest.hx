@@ -7,7 +7,7 @@ import com.auroratide.xest.run.ExampleGroup;
 using Lambda;
 
 class Xest {
-  private var __group:ExampleGroup = new ExampleGroup("", []);
+  private var __group:ExampleGroup = new ExampleGroup("");
 
   private final function run() {
     __group.run();
@@ -19,10 +19,11 @@ class Xest {
 
   private final function describe(name:String, f:() -> Void) {
     final formerGroup = __group;
-    __group = new ExampleGroup(name, formerGroup.beforeHooks.copy());
+    __group = new ExampleGroup(name);
 
     f();
 
+    __group.propogate();
     formerGroup.groups.push(__group);
     __group = formerGroup;
   }

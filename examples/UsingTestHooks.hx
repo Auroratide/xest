@@ -21,6 +21,7 @@ class UsingTestHooks extends Xest {
         n = 0;
       });
 
+
       describe("nested before block", () -> {
         var m = 0;
 
@@ -38,6 +39,23 @@ class UsingTestHooks extends Xest {
           assert(n + m).is(11);
           n = 0;
           m = 0;
+        });
+      });
+
+
+      describe("declaration order does not matter", () -> {
+        var m = 0;
+
+        describe("...", () -> {
+          example("m becomes 6 before each test", () -> {
+            assert(n + m).is(11);
+            n = 0;
+            m = 0;
+          });
+        });
+
+        beforeEach(() -> {
+          m = 6;
         });
       });
     });

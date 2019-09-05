@@ -6,7 +6,7 @@ class Main {
   public static function main() {
     start([
       new running.RunningTests(),
-      new assertions.Assertions(),
+      new expectations.Expectations(),
       new running.hooks.BeforeEach(),
       new running.hooks.AfterEach()
     ]);

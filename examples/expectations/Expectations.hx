@@ -1,17 +1,15 @@
-package assertions;
+package expectations;
 
 import com.auroratide.xest.Xest;
 
-class Assertions extends Xest {
+class Expectations extends Xest {
   public function new() {
     example("asserting two primitives are the same", () -> {
-      assert(1).is(1);
-      assert(true).is(true);
-      assert(5.6).is(5.6);
+      expect(1).to.be(1);
     });
 
     example("asserting two objects are equal", () -> {
-      assert(new Circle(2)).equals(new Circle(2));
+      expect(new Circle(2)).to.equal(new Circle(2));
     });
   }
 }

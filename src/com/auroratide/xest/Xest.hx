@@ -1,6 +1,6 @@
 package com.auroratide.xest;
 
-import com.auroratide.xest.assert.Assertion;
+import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.run.Example;
 import com.auroratide.xest.run.ExampleGroup;
 import com.auroratide.xest.run.Reporter;
@@ -39,8 +39,8 @@ class Xest {
     __group.hook(AfterEach(f));
   }
 
-  private final function assert<T>(actual:T):Assertion<T> {
-    return new Assertion<T>(actual);
+  private final function expect<T>(actual:T):Expectation<T> {
+    return new Expectation<T>(actual);
   }
 
   private final inline function it(name:String, f:() -> Void)

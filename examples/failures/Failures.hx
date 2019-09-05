@@ -9,11 +9,11 @@ class Failures extends Xest {
     });
 
     example("identity failure", () -> {
-      assert(1).is(2);
+      expect(1).to.be(2);
     });
 
     example("equality failure", () -> {
-      assert(new Circle(1)).equals(new Circle(2));
+      expect(new Circle(1)).to.equal(new Circle(2));
     });
   }
 }

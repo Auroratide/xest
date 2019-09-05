@@ -11,12 +11,12 @@ class AfterEach extends Xest {
     });
 
     example("n becomes 5 after each test", () -> {
-      assert(n).is(5);
+      expect(n).to.be(5);
       n = 0;
     });
 
     example("n becomes 5 after each test", () -> {
-      assert(n).is(5);
+      expect(n).to.be(5);
       n = 0;
     });
 
@@ -29,13 +29,13 @@ class AfterEach extends Xest {
       });
 
       example("m becomes 6 after each test", () -> {
-        assert(n + m).is(11);
+        expect(n + m).to.be(11);
         n = 0;
         m = 0;
       });
 
       example("m becomes 6 after each test", () -> {
-        assert(n + m).is(11);
+        expect(n + m).to.be(11);
         n = 0;
         m = 0;
       });
@@ -47,13 +47,13 @@ class AfterEach extends Xest {
 
       describe("...", () -> {
         example("m becomes 6 after each test", () -> {
-          assert(n + m).is(11);
+          expect(n + m).to.be(11);
           n = 0;
           m = 0;
         });
 
         example("m becomes 6 after each test", () -> {
-          assert(n + m).is(11);
+          expect(n + m).to.be(11);
           n = 0;
           m = 0;
         });

@@ -1,6 +1,9 @@
 package expectations;
 
 import com.auroratide.xest.Xest;
+import common.Circle;
+import common.Complex;
+import common.Direction;
 
 class Identity extends Xest {
   public function new() {
@@ -19,16 +22,22 @@ class Identity extends Xest {
       expect(circle).to.be(circle);
     });
 
+    example("abstracts", () -> {
+      final n = new Complex(1, 2);
+      expect(n).to.be(n);
+    });
+
+    example("functions", () -> {
+      final sum = (a, b) -> a + b;
+      expect(sum).to.be(sum);
+    });
+
+    example("enums", () -> {
+      expect(North).to.be(North);
+    });
+
     example("null", () -> {
       expect(null).to.be(null);
     });
-  }
-}
-
-private class Circle {
-  public final radius:Int;
-
-  public function new(radius:Int) {
-    this.radius = radius;
   }
 }

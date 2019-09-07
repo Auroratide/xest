@@ -9,7 +9,8 @@ class Failures extends Xest {
     });
 
     example("equality failure", () -> {
-      expect(2 + 2 == 5);
+      var x = 2;
+      expect(2 + x == 5);
     });
 
     example("truth failure", () -> {

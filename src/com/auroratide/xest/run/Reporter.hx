@@ -38,7 +38,7 @@ class Reporter extends Printer {
       case Failure(name, reason):
         pad(spaces + 2).failed.red.print(name);
         newline.print();
-        pad(spaces + 4).red.print(reason);
+        '$reason'.split("\n").iter(s -> pad(spaces + 4).red.print(s));
         newline.print();
         newline.print();
       case _:

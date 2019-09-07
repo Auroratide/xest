@@ -9,6 +9,11 @@ class Expectations extends Xest {
       expect("Xest" == "Xest");
     });
 
+    example("inequality", () -> {
+      expect(1 + 1 != 3);
+      expect("Xest" != "bad");
+    });
+
     example("truth", () -> {
       expect(true);
     });

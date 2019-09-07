@@ -14,6 +14,10 @@ abstract Expectation(ExprOf<Bool>) to ExprOf<Bool> {
         macro 'Expected ${lhs.toString()} to equal ${rhs.toString()}\n\n' +
           'Expected: ' + $rhs + '\n' +
           'Actual  : ' + $lhs;
+      case EBinop(OpNotEq, lhs, rhs):
+        macro 'Expected ${lhs.toString()} to not equal ${rhs.toString()}\n\n' +
+          'Expected: ' + $rhs + '\n' +
+          'Actual  : ' + $lhs;
       case _:
         macro 'Expected ${this.toString()} to be true';
     }

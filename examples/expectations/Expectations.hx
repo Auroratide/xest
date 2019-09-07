@@ -17,5 +17,11 @@ class Expectations extends Xest {
     example("truth", () -> {
       expect(true);
     });
+
+    describe("aliases", () -> {
+      example("assert", () -> {
+        assert(1 == 1);
+      });
+    });
   }
 }

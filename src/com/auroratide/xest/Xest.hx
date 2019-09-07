@@ -40,7 +40,7 @@ class Xest {
     __group.hook(AfterEach(f));
   }
 
-  private macro function expect(context, e:Expectation):Expr {
+  private final macro function expect(context, e:Expectation):Expr {
     return e.evaluate();
   }
 
@@ -55,6 +55,9 @@ class Xest {
   
   private final function afterEach(f:() -> Void)
     after(f);
+  
+  private final macro function assert(context, e:Expectation):Expr
+    return macro expect($e);
 
   public static function start(suites:Array<Xest>) {
     final reporter = new Reporter();

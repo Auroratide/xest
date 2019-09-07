@@ -1,11 +1,10 @@
 package com.auroratide.xest;
 
 import haxe.macro.Expr;
+import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.run.Example;
 import com.auroratide.xest.run.ExampleGroup;
 import com.auroratide.xest.run.Reporter;
-
-using haxe.macro.Tools;
 
 using Lambda;
 using Type;
@@ -41,13 +40,8 @@ class Xest {
     __group.hook(AfterEach(f));
   }
 
-  private macro function expect(context, e:ExprOf<Bool>):Expr {
-    return switch(e.expr) {
-      case EBinop(OpEq, lhs, rhs):
-        macro if(!$e) throw 'Expected ${lhs.toString()} to equal ${rhs.toString()}';
-      case _:
-        macro if(!$e) throw 'Expected ${e.toString()} to be true';
-    }
+  private macro function expect(context, e:Expectation):Expr {
+    return e.evaluate();
   }
 
   private final inline function it(name:String, f:() -> Void)

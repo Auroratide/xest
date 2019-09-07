@@ -1,0 +1,5 @@
+-cp cli
+-cp lib
+-cp cli/examples
+-main Examples
+--interp

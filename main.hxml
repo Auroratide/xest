@@ -1,3 +1,4 @@
 # This is to make vscode stop complaining for now
+-cp cli
 -cp lib
 -cp examples

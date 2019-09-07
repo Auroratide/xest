@@ -1,0 +1,3 @@
+-cp cli
+-main Main
+--neko bin/xest.n

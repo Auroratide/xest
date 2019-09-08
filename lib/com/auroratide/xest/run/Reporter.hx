@@ -33,17 +33,19 @@ class Reporter extends Printer {
   }
 
   private function failures(set:ResultSet, spaces:Int) {
-    pad(spaces).bold.red.print(set.name);
-    set.results.iter(result -> switch(result) {
-      case Failure(name, reason):
-        pad(spaces + 2).failed.red.print(name);
-        newline.print();
-        '$reason'.split("\n").iter(s -> pad(spaces + 4).red.print(s));
-        newline.print();
-        newline.print();
-      case _:
-    });
-    set.sets.iter(s -> failures(s, spaces + 2));
+    if(set.result.match(Failure(_, _))) {
+      pad(spaces).bold.red.print(set.name);
+      set.results.iter(result -> switch(result) {
+        case Failure(name, reason):
+          pad(spaces + 2).failed.red.print(name);
+          newline.print();
+          '$reason'.split("\n").iter(s -> pad(spaces + 4).red.print(s));
+          newline.print();
+          newline.print();
+        case _:
+      });
+      set.sets.iter(s -> failures(s, spaces + 2));
+    }
   }
 }
 

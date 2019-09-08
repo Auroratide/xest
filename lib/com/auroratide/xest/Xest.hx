@@ -1,6 +1,7 @@
 package com.auroratide.xest;
 
 import haxe.macro.Expr;
+import haxe.macro.Context;
 import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.run.Example;
 import com.auroratide.xest.run.ExampleGroup;
@@ -9,7 +10,12 @@ import com.auroratide.xest.run.Reporter;
 using Lambda;
 using Type;
 
+@:autoBuild(com.auroratide.xest.Registrar.register())
 class Xest {
+  public static function main() {
+    Type.createEmptyInstance(Type.resolveClass("com.auroratide.xest.Runner")).run();
+  }
+
   private var __group:ExampleGroup = new ExampleGroup("");
 
   private final function run(reporter:Reporter) {

@@ -1,5 +1,5 @@
 -cp lib
--cp examples
+-cp failures
 -main com.auroratide.xest.Xest
---macro include('examples')
+--macro include('failures')
 --interp

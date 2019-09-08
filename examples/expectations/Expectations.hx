@@ -1,4 +1,4 @@
-package expectations;
+package examples.expectations;
 
 import com.auroratide.xest.Xest;
 

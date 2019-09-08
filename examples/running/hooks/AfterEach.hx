@@ -1,4 +1,4 @@
-package running.hooks;
+package examples.running.hooks;
 
 import com.auroratide.xest.Xest;
 

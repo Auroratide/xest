@@ -17,5 +17,21 @@ class RunningTests extends Xest {
         expect(true);
       });
     });
+
+    describe("Skipping", () -> {
+      skip.example("using skip", () -> {
+        throw "Test should have been skipped, but it ran";
+      });
+
+      describe("Aliases", () -> {
+        ignore.example("using ignore", () -> {
+          throw "Test should have been skipped, but it ran";
+        });
+
+        disable.example("using disable", () -> {
+          throw "Test should have been skipped, but it ran";
+        });
+      });
+    });
   }
 }

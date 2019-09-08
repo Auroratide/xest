@@ -1,6 +1,6 @@
 package com.auroratide.xest.run;
 
-final class Example {
+class Example {
   public final name:String;
   private final test:() -> Void;
 

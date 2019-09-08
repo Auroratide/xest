@@ -27,6 +27,7 @@ class Reporter extends Printer {
     pad(spaces).bold.print(set.name);
     set.results.iter(result -> switch(result) {
       case Success(name): pad(spaces + 2).passed.grey.print(name);
+      case Skipped(name): pad(spaces + 2).skipped.yellow.print(name);
       case Failure(name): pad(spaces + 2).failed.red.print(name);
     });
     set.sets.iter(s -> summary(s, spaces + 2));
@@ -58,7 +59,9 @@ private class Printer {
   private var red(get, never):Printer;
   private var green(get, never):Printer;
   private var grey(get, never):Printer;
+  private var yellow(get, never):Printer;
   private var passed(get, never):Printer;
+  private var skipped(get, never):Printer;
   private var failed(get, never):Printer;
 
   public function new(prepend:String = "", append:String = "") {
@@ -88,9 +91,15 @@ private class Printer {
 
   private function get_grey():Printer
     return new Printer('$prepend\u001B[90m', '\u001B[0m$append');
+  
+  private function get_yellow():Printer
+    return new Printer('$prepend\u001B[33m', '\u001B[0m$append');
 
   private function get_passed():Printer
     return new Printer('$prepend\u001B[32m✓\u001B[0m ', append);
+
+  private function get_skipped():Printer
+    return new Printer('$prepend\u001B[33m-\u001B[0m ', append);
 
   private function get_failed():Printer
     return new Printer('$prepend\u001B[31m✗\u001B[0m ', append);

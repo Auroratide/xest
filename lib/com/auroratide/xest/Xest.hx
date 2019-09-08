@@ -5,6 +5,7 @@ import haxe.macro.Context;
 import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.run.Example;
 import com.auroratide.xest.run.ExampleGroup;
+import com.auroratide.xest.run.Skipped;
 import com.auroratide.xest.run.Reporter;
 
 using Lambda;
@@ -17,6 +18,10 @@ class Xest {
   }
 
   private var __group:ExampleGroup = new ExampleGroup("");
+
+  private var skip(get, never):TestProvider;
+  private var ignore(get, never):TestProvider;
+  private var disable(get, never):TestProvider;
 
   private final function run(reporter:Reporter) {
     final classpath = this.getClass().getClassName().split(".");
@@ -65,8 +70,28 @@ class Xest {
   private final macro function assert(context, e:Expectation):Expr
     return macro expect($e);
 
+  private final function get_skip():TestProvider {
+    return {
+      example: (name, f) -> __group.example(new Skipped(name, f)),
+      it: (name, f) -> __group.example(new Skipped(name, f)),
+      test: (name, f) -> __group.example(new Skipped(name, f))
+    };
+  }
+
+  private final function get_ignore():TestProvider
+    return skip;
+
+  private final function get_disable():TestProvider
+    return skip;
+
   public static function start(suites:Array<Xest>) {
     final reporter = new Reporter();
     suites.iter(s -> s.run(reporter));
   }
+}
+
+private typedef TestProvider = {
+  function example(name:String, f:() -> Void):Void;
+  function it(name:String, f:() -> Void):Void;
+  function test(name:String, f:() -> Void):Void;
 }

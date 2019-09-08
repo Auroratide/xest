@@ -6,13 +6,14 @@ import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.run.Example;
 import com.auroratide.xest.run.ExampleGroup;
 import com.auroratide.xest.run.Skipped;
+import com.auroratide.xest.run.TestProvider;
 import com.auroratide.xest.run.Reporter;
 
 using Lambda;
 using Type;
 
 @:autoBuild(com.auroratide.xest.Registrar.register())
-class Xest {
+class Xest implements TestProvider {
   public static function main() {
     Type.createEmptyInstance(Type.resolveClass("com.auroratide.xest.Runner")).run();
   }
@@ -29,7 +30,7 @@ class Xest {
     reporter.report(__group.run());
   }
 
-  private final function example(name:String, f:() -> Void) {
+  public final function example(name:String, f:() -> Void) {
     __group.example(new Example(name, f));
   }
 
@@ -55,10 +56,10 @@ class Xest {
     return e.evaluate();
   }
 
-  private final inline function it(name:String, f:() -> Void)
+  public final inline function it(name:String, f:() -> Void)
     example(name, f);
 
-  private final inline function test(name:String, f:() -> Void)
+  public final inline function test(name:String, f:() -> Void)
     example(name, f);
 
   private final function beforeEach(f:() -> Void)
@@ -71,11 +72,7 @@ class Xest {
     return macro expect($e);
 
   private final function get_skip():TestProvider {
-    return {
-      example: (name, f) -> __group.example(new Skipped(name, f)),
-      it: (name, f) -> __group.example(new Skipped(name, f)),
-      test: (name, f) -> __group.example(new Skipped(name, f))
-    };
+    return new SkippingTestProvider(__group);
   }
 
   private final function get_ignore():TestProvider
@@ -90,8 +87,20 @@ class Xest {
   }
 }
 
-private typedef TestProvider = {
-  function example(name:String, f:() -> Void):Void;
-  function it(name:String, f:() -> Void):Void;
-  function test(name:String, f:() -> Void):Void;
+private class SkippingTestProvider implements TestProvider {
+  private final group:ExampleGroup;
+
+  public function new(group:ExampleGroup) {
+    this.group = group;
+  }
+
+  public function example(name, f) {
+    group.example(new Skipped(name, f));
+  }
+
+  public function it(name, f)
+    return example(name, f);
+
+  public function test(name, f)
+    return example(name, f);
 }

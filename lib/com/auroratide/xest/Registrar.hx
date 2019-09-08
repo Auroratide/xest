@@ -28,13 +28,13 @@ class Registrar {
                     macro final reporter = new com.auroratide.xest.run.Reporter()
                   ].concat(classes.map(c -> switch(c) {
                     case TInst(ref, _):
-                      final thing = {
+                      final className = {
                         expr: EConst(CString(ref.toString())),
                         pos: Context.currentPos()
                       };
-                      macro Type.createInstance(Type.resolveClass($thing), []).run(reporter);
+                      macro Type.createInstance(Type.resolveClass($className), []).run(reporter);
                     case _:
-                      macro "6";
+                      macro null; // do nothing
                   }))),
                   pos: Context.currentPos()
                 }

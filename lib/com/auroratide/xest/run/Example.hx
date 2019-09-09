@@ -11,10 +11,10 @@ class Example {
 
   public function run():Result {
     return try {
-        test();
-        Success(name);
-      } catch(e:Dynamic) {
-        Failure(name, e);
-      }
+      final time = Timer.millis(test);
+      Success(name, time);
+    } catch(e:Dynamic) {
+      Failure(name, e);
+    }
   }
 }

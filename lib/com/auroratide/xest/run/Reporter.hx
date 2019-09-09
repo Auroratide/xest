@@ -1,5 +1,6 @@
 package com.auroratide.xest.run;
 
+import com.auroratide.xest.run.Timer.Milliseconds;
 using Lambda;
 using StringTools;
 
@@ -24,9 +25,9 @@ class Reporter extends Printer {
   }
 
   private function summary(set:ResultSet, spaces:Int) {
-    pad(spaces).bold.print(set.name);
+    pad(spaces).bold.print('${set.name}${showTime(set.time)}');
     set.results.iter(result -> switch(result) {
-      case Success(name): pad(spaces + 2).passed.grey.print(name);
+      case Success(name, time): pad(spaces + 2).passed.grey.print('$name${showTime(time)}');
       case Skipped(name): pad(spaces + 2).skipped.yellow.print(name);
       case Failure(name): pad(spaces + 2).failed.red.print(name);
     });
@@ -47,6 +48,10 @@ class Reporter extends Printer {
       });
       set.sets.iter(s -> failures(s, spaces + 2));
     }
+  }
+
+  private function showTime(time:Milliseconds):String {
+    return time >= 0.1 ? ' ($time)' : '';
   }
 }
 

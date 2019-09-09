@@ -19,16 +19,16 @@ class Reporter extends Printer {
   }
 
   public function summary() {
-    if(sets.exists(s -> s.result.match(Failure(_, _)))) {
-      newline.print();
-      newline.print();
-      bold.red.print("*************************************");
-      bold.red.print("Some tests failed:");
-      bold.red.print("*************************************");
-      newline.print();
+    newline.print();
+    bold.print("----------------------------------------");
+    newline.print();
+    sets.iter(s -> failures(s, 0));
 
-      sets.iter(s -> failures(s, 0));
-    }
+    bold.print('Total tests: ${sets.fold((s, sum) -> s.count + sum, 0)}${showTime(sets.fold((s, sum) -> s.time + sum, 0))}');
+    pad(2).passed.green.print('Passed : ${sets.fold((s, sum) -> sum + s.cc(Success()), 0)}');
+    pad(2).failed.red.print('Failed : ${sets.fold((s, sum) -> sum + s.cc(Failure()), 0)}');
+    pad(2).skipped.yellow.print('Skipped: ${sets.fold((s, sum) -> sum + s.cc(Skipped()), 0)}');
+    newline.print();
   }
 
   private function setSummary(set:ResultSet, spaces:Int) {

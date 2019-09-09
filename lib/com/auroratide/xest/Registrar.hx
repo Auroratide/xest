@@ -35,7 +35,9 @@ class Registrar {
                       macro Type.createInstance(Type.resolveClass($className), []).run(reporter);
                     case _:
                       macro null; // do nothing
-                  }))),
+                  })).concat([
+                    macro reporter.summary()
+                  ])),
                   pos: Context.currentPos()
                 }
               }),

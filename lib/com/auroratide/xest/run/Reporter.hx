@@ -5,33 +5,40 @@ using Lambda;
 using StringTools;
 
 class Reporter extends Printer {
+  private final sets:Array<ResultSet> = [];
+
   public function new() {
     super();
   }
 
   public function report(set:ResultSet) {
-    newline.print();
-    summary(set, 0);
+    sets.push(set);
 
-    if(set.result.match(Failure(_, _))) {
+    newline.print();
+    setSummary(set, 0);
+  }
+
+  public function summary() {
+    if(sets.exists(s -> s.result.match(Failure(_, _)))) {
       newline.print();
       newline.print();
       bold.red.print("*************************************");
       bold.red.print("Some tests failed:");
       bold.red.print("*************************************");
       newline.print();
-      failures(set, 0);
+
+      sets.iter(s -> failures(s, 0));
     }
   }
 
-  private function summary(set:ResultSet, spaces:Int) {
+  private function setSummary(set:ResultSet, spaces:Int) {
     pad(spaces).bold.print('${set.name}${showTime(set.time)}');
     set.results.iter(result -> switch(result) {
       case Success(name, time): pad(spaces + 2).passed.grey.print('$name${showTime(time)}');
       case Skipped(name): pad(spaces + 2).skipped.yellow.print(name);
       case Failure(name): pad(spaces + 2).failed.red.print(name);
     });
-    set.sets.iter(s -> summary(s, spaces + 2));
+    set.sets.iter(s -> setSummary(s, spaces + 2));
   }
 
   private function failures(set:ResultSet, spaces:Int) {

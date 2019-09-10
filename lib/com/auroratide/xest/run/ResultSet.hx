@@ -21,7 +21,7 @@ class ResultSet {
   }
 
   private function get_result():Result {
-    return if(results.exists(r -> r.match(Failure(_)) || sets.exists(r -> r.result.match(Failure(_)))))
+    return if(results.exists(r -> r.match(Failure(_))) || sets.exists(r -> r.result.match(Failure(_))))
       Failure();
     else
       Success();

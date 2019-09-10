@@ -22,9 +22,10 @@ class Reporter extends Printer {
     newline.print();
     bold.print("----------------------------------------");
     newline.print();
-    sets.iter(s -> failures(s, 0));
 
     final all = new ResultSet("", [], sets);
+
+    failures(all, -2);
 
     bold.print('Total tests: ${all.count()}${showTime(all.time)}');
     pad(2).passed.green.print('Passed : ${all.count(Success())}');
@@ -44,7 +45,7 @@ class Reporter extends Printer {
   }
 
   private function failures(set:ResultSet, spaces:Int) {
-    if(set.result.match(Failure(_, _))) {
+    if(set.result.match(Failure())) {
       pad(spaces).bold.red.print(set.name);
       set.results.iter(result -> switch(result) {
         case Failure(name, reason):

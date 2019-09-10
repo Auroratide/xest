@@ -35,6 +35,14 @@ class Reporter extends Printer {
     if(failed > 0) pad(2).failed.red.print('Failed : $failed');
     if(skipped > 0) pad(2).skipped.yellow.print('Skipped: $skipped');
     newline.print();
+
+    if(failed > 0) {
+      bold.red.print("Uh oh! Some tests failed. See the details above.");
+    } else {
+      bold.green.print("Nice! All tests passed!");
+    }
+
+    newline.print();
   }
 
   private function setSummary(set:ResultSet, spaces:Int) {

@@ -1,0 +1,11 @@
+{
+  "name": "xest",
+  "url": "https://github.com/Auroratide/xest",
+  "license": "MIT",
+  "tags": [],
+  "description": "A lambda-based testing library written in Haxe for Haxe!",
+  "version": "0.1.0",
+  "classPath": "lib",
+  "releasenote": "The very first release",
+  "contributors": ["auroratide"]
+}

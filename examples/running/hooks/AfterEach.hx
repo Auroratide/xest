@@ -2,6 +2,13 @@ package examples.running.hooks;
 
 import com.auroratide.xest.Xest;
 
+/**
+  This example shows off how to teardown tests.
+
+  Sometimes you have to safely clean up after tests are run, such as clearing
+  a database or what have you. In such a case, you can declare an `after` block
+  that is run after each test in its block.
+ */
 class AfterEach extends Xest {
   public function new() {
     var n = 5;

@@ -2,6 +2,14 @@ package examples.running.hooks;
 
 import com.auroratide.xest.Xest;
 
+/**
+  This example shows off how to setup tests.
+
+  It is often useful to have a method that sets up common structures for the
+  other tests to use. Rather than duplicate that setup in each test, you can
+  declare a `before` block which is guaranteed to run before each test in
+  its block.
+ */
 class BeforeEach extends Xest {
   public function new() {
     var n = 0;

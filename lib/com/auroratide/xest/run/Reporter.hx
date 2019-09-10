@@ -24,13 +24,16 @@ class Reporter extends Printer {
     newline.print();
 
     final all = new ResultSet("", [], sets);
+    final passed = all.count(Success());
+    final failed = all.count(Failure());
+    final skipped = all.count(Skipped());
 
     failures(all, -2);
 
-    bold.print('Total tests: ${all.count()}${showTime(all.time)}');
-    pad(2).passed.green.print('Passed : ${all.count(Success())}');
-    pad(2).failed.red.print('Failed : ${all.count(Failure())}');
-    pad(2).skipped.yellow.print('Skipped: ${all.count(Skipped())}');
+    bold.print('Total tests: ${passed + failed + skipped}${showTime(all.time)}');
+    if(passed > 0) pad(2).passed.green.print('Passed : $passed');
+    if(failed > 0) pad(2).failed.red.print('Failed : $failed');
+    if(skipped > 0) pad(2).skipped.yellow.print('Skipped: $skipped');
     newline.print();
   }
 

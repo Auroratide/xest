@@ -1,6 +1,7 @@
 package com.auroratide.xest.run;
 
 import haxe.CallStack;
+import com.auroratide.xest.expect.ExpectationFailure;
 
 class Test {
   public final name:String;
@@ -15,6 +16,8 @@ class Test {
     return try {
       final time = Timer.millis(test);
       Success(name, time);
+    } catch(e:ExpectationFailure) {
+      Failure(name, e);
     } catch(e:Dynamic) {
       Failure(name, new TestFailure(e, CallStack.exceptionStack()));
     }

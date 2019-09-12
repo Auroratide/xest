@@ -11,6 +11,7 @@ import com.auroratide.xest.run.Reporter;
 
 using Lambda;
 using Type;
+using haxe.macro.Tools;
 
 @:autoBuild(com.auroratide.xest.Registrar.register())
 class Xest implements TestProvider {
@@ -53,7 +54,7 @@ class Xest implements TestProvider {
   }
 
   private final macro function expect(context, e:Expectation):Expr {
-    return e.evaluate();
+    return e.evaluate(Context.currentPos().toLocation());
   }
 
   public final inline function it(name:String, f:() -> Void)

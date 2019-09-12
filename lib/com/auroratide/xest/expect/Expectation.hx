@@ -1,11 +1,15 @@
 package com.auroratide.xest.expect;
 
+import haxe.display.Position.Location;
 import haxe.macro.Expr;
+import haxe.macro.Context;
 using haxe.macro.Tools;
 
 abstract Expectation(ExprOf<Bool>) to ExprOf<Bool> {
-  public inline function evaluate() {
-    return macro if(!$this) throw new com.auroratide.xest.expect.ExpectationFailure(${message()});
+  public inline function evaluate(location:Location) {
+    final file = { expr: EConst(CString(location.file.toString())), pos: Context.currentPos() };
+    final line = { expr: EConst(CInt('${location.range.start.line}')), pos: Context.currentPos() };
+    return macro if(!$this) throw new com.auroratide.xest.expect.ExpectationFailure(${message()}, $file, $line);
   }
 
   public inline function message():ExprOf<String> {

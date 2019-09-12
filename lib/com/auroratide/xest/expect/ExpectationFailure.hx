@@ -1,6 +1,6 @@
 package com.auroratide.xest.expect;
 
-class Failure {
+class ExpectationFailure {
   public final message:String;
 
   public function new(message:String) {

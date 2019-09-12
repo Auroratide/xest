@@ -5,7 +5,7 @@ using haxe.macro.Tools;
 
 abstract Expectation(ExprOf<Bool>) to ExprOf<Bool> {
   public inline function evaluate() {
-    return macro if(!$this) throw new com.auroratide.xest.expect.Failure(${message()});
+    return macro if(!$this) throw new com.auroratide.xest.expect.ExpectationFailure(${message()});
   }
 
   public inline function message():ExprOf<String> {

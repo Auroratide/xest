@@ -2,7 +2,7 @@ package com.auroratide.xest.run;
 
 import haxe.CallStack;
 
-class Example {
+class Test {
   public final name:String;
   private final test:() -> Void;
 

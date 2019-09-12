@@ -3,8 +3,8 @@ package com.auroratide.xest;
 import haxe.macro.Expr;
 import haxe.macro.Context;
 import com.auroratide.xest.expect.Expectation;
-import com.auroratide.xest.run.Example;
-import com.auroratide.xest.run.ExampleGroup;
+import com.auroratide.xest.run.Test;
+import com.auroratide.xest.run.Group;
 import com.auroratide.xest.run.Skipped;
 import com.auroratide.xest.run.TestProvider;
 import com.auroratide.xest.run.Reporter;
@@ -18,7 +18,7 @@ class Xest implements TestProvider {
     Type.createEmptyInstance(Type.resolveClass("com.auroratide.xest.Runner")).run();
   }
 
-  private var __group:ExampleGroup = new ExampleGroup("");
+  private var __group:Group = new Group("");
 
   private var skip(get, never):TestProvider;
   private var ignore(get, never):TestProvider;
@@ -31,12 +31,12 @@ class Xest implements TestProvider {
   }
 
   public final function example(name:String, f:() -> Void) {
-    __group.example(new Example(name, f));
+    __group.example(new Test(name, f));
   }
 
   private final function describe(name:String, f:() -> Void) {
     final formerGroup = __group;
-    __group = new ExampleGroup(name);
+    __group = new Group(name);
 
     f();
 
@@ -88,9 +88,9 @@ class Xest implements TestProvider {
 }
 
 private class SkippingTestProvider implements TestProvider {
-  private final group:ExampleGroup;
+  private final group:Group;
 
-  public function new(group:ExampleGroup) {
+  public function new(group:Group) {
     this.group = group;
   }
 

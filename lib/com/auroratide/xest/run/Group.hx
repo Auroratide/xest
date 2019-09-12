@@ -2,10 +2,10 @@ package com.auroratide.xest.run;
 
 using Lambda;
 
-final class ExampleGroup {
+final class Group {
   public var name:String;
-  private final groups:Array<ExampleGroup> = [];
-  private final examples:Array<Example> = [];
+  private final groups:Array<Group> = [];
+  private final examples:Array<Test> = [];
   private final hooks:Array<Hook> = [];
 
   public function new(name:String) {
@@ -34,11 +34,11 @@ final class ExampleGroup {
     return new ResultSet(name, results, sets);
   }
 
-  public function example(value:Example) {
+  public function example(value:Test) {
     examples.push(value);
   }
 
-  public function group(value:ExampleGroup) {
+  public function group(value:Group) {
     hooks.iter(h -> value.hook(h));
     groups.push(value);
   }

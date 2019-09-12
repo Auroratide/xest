@@ -21,11 +21,11 @@ class Xest implements TestProvider {
 
   private var __group:Group = new Group("");
 
-  private var skip(get, never):TestProvider;
-  private var ignore(get, never):TestProvider;
-  private var disable(get, never):TestProvider;
+  public var skip(get, never):TestProvider;
+  public var ignore(get, never):TestProvider;
+  public var disable(get, never):TestProvider;
 
-  private final function run(reporter:Reporter) {
+  public final function run(reporter:Reporter) {
     final classpath = this.getClass().getClassName().split(".");
     __group.name = classpath[classpath.length - 1];
     reporter.report(__group.run());
@@ -35,7 +35,7 @@ class Xest implements TestProvider {
     __group.example(new Test(name, f));
   }
 
-  private final function describe(name:String, f:() -> Void) {
+  public final function describe(name:String, f:() -> Void) {
     final formerGroup = __group;
     __group = new Group(name);
 
@@ -45,15 +45,15 @@ class Xest implements TestProvider {
     __group = formerGroup;
   }
 
-  private final function before(f:() -> Void) {
+  public final function before(f:() -> Void) {
     __group.hook(BeforeEach(f));
   }
 
-  private final function after(f:() -> Void) {
+  public final function after(f:() -> Void) {
     __group.hook(AfterEach(f));
   }
 
-  private final macro function expect(context, e:Expectation):Expr {
+  public final macro function expect(context, e:Expectation):Expr {
     return e.evaluate(Context.currentPos().toLocation());
   }
 
@@ -63,13 +63,13 @@ class Xest implements TestProvider {
   public final inline function test(name:String, f:() -> Void)
     example(name, f);
 
-  private final function beforeEach(f:() -> Void)
+  public final function beforeEach(f:() -> Void)
     before(f);
   
-  private final function afterEach(f:() -> Void)
+  public final function afterEach(f:() -> Void)
     after(f);
   
-  private final macro function assert(context, e:Expectation):Expr
+  public final macro function assert(context, e:Expectation):Expr
     return macro expect($e);
 
   private final function get_skip():TestProvider {
@@ -81,11 +81,6 @@ class Xest implements TestProvider {
 
   private final function get_disable():TestProvider
     return skip;
-
-  public static function start(suites:Array<Xest>) {
-    final reporter = new Reporter();
-    suites.iter(s -> s.run(reporter));
-  }
 }
 
 private class SkippingTestProvider implements TestProvider {

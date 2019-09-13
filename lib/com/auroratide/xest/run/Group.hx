@@ -5,7 +5,7 @@ using Lambda;
 final class Group {
   public var name:String;
   private final groups:Array<Group> = [];
-  private final examples:Array<Test> = [];
+  private final tests:Array<Test> = [];
   private final hooks:Array<Hook> = [];
 
   public function new(name:String) {
@@ -13,7 +13,7 @@ final class Group {
   }
 
   public function run():ResultSet {
-    final results = examples.map(example -> {
+    final results = tests.map(example -> {
       hooks.iter(h -> switch(h) {
         case BeforeEach(f): f();
         case _:
@@ -35,7 +35,7 @@ final class Group {
   }
 
   public function example(value:Test) {
-    examples.push(value);
+    tests.push(value);
   }
 
   public function group(value:Group) {

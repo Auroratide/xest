@@ -25,7 +25,7 @@ class Registrar {
                 ret: macro:Void,
                 expr: {
                   expr: EBlock([
-                    macro final reporter = new com.auroratide.xest.run.Reporter()
+                    macro final reporter = new com.auroratide.xest.reporting.Reporter(new com.auroratide.xest.reporting.Printer())
                   ].concat(classes.map(c -> switch(c) {
                     case TInst(ref, _):
                       final className = {

@@ -7,7 +7,7 @@ import com.auroratide.xest.run.Test;
 import com.auroratide.xest.run.Group;
 import com.auroratide.xest.run.Skipped;
 import com.auroratide.xest.run.TestProvider;
-import com.auroratide.xest.run.Reporter;
+import com.auroratide.xest.reporting.Reporter;
 
 using Lambda;
 using Type;

@@ -5,7 +5,7 @@ import haxe.macro.Context;
 import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.run.Test;
 import com.auroratide.xest.run.Group;
-import com.auroratide.xest.run.Skipped;
+import com.auroratide.xest.run.SkippedTest;
 import com.auroratide.xest.run.TestProvider;
 import com.auroratide.xest.reporting.Reporter;
 
@@ -91,7 +91,7 @@ private class SkippingTestProvider implements TestProvider {
   }
 
   public function example(name, f) {
-    group.example(new Skipped(name, f));
+    group.example(new SkippedTest(name, f));
   }
 
   public function it(name, f)

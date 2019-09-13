@@ -19,7 +19,7 @@ class Test {
     } catch(e:ExpectationFailure) {
       Failure(name, e);
     } catch(e:Dynamic) {
-      Failure(name, new TestFailure(e, CallStack.exceptionStack()));
+      Failure(name, new GeneralExceptionFailure(e, CallStack.exceptionStack()));
     }
   }
 }

@@ -2,7 +2,7 @@ package com.auroratide.xest.run;
 
 import haxe.CallStack;
 
-class TestFailure {
+class GeneralExceptionFailure {
   private final cause:Dynamic;
   private final stack:Array<StackItem>;
 

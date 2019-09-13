@@ -6,6 +6,9 @@ import haxe.macro.Context;
 using Lambda;
 
 class Registrar {
+  private static inline final RUNNER_PACKAGE = "com.auroratide.xest";
+  private static inline final RUNNER_CLASS = "Runner";
+
   private static var runnerRegistered = false;
   private static var runnerBuilt = false;
   private static final classes:Array<haxe.macro.Type> = [];
@@ -15,8 +18,8 @@ class Registrar {
       Context.onAfterTyping(arr -> {
         if(!runnerBuilt) {
           Context.defineType({
-            name: "Runner",
-            pack: ["com", "auroratide", "xest"],
+            name: RUNNER_CLASS,
+            pack: RUNNER_PACKAGE.split("."),
             fields: [{
               name: "run",
               access: [APublic],
@@ -56,5 +59,9 @@ class Registrar {
 
     classes.push(Context.getLocalType());
     return Context.getBuildFields();
+  }
+
+  public static function runner() {
+    return Type.createEmptyInstance(Type.resolveClass('$RUNNER_PACKAGE.$RUNNER_CLASS'));
   }
 }

@@ -16,7 +16,7 @@ using haxe.macro.Tools;
 @:autoBuild(com.auroratide.xest.Registrar.register())
 class Xest implements TestProvider {
   public static function main() {
-    Type.createEmptyInstance(Type.resolveClass("com.auroratide.xest.Runner")).run();
+    Registrar.runner().run();
   }
 
   private var __group:Group = new Group("");

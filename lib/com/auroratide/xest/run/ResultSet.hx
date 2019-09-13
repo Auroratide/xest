@@ -3,7 +3,7 @@ package com.auroratide.xest.run;
 import com.auroratide.xest.run.Timer.Milliseconds;
 using Lambda;
 
-class ResultSet {
+final class ResultSet {
   public final name:String;
   public final results:Array<Result>;
   public final sets:Array<ResultSet>;

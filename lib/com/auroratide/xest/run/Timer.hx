@@ -1,6 +1,6 @@
 package com.auroratide.xest.run;
 
-class Timer {
+final class Timer {
   public static function millis(f:() -> Void):Milliseconds {
     final start = haxe.Timer.stamp();
     f();

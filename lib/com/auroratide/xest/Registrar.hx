@@ -5,7 +5,7 @@ import haxe.macro.Context;
 
 using Lambda;
 
-class Registrar {
+final class Registrar {
   private static inline final RUNNER_PACKAGE = "com.auroratide.xest";
   private static inline final RUNNER_CLASS = "Runner";
 

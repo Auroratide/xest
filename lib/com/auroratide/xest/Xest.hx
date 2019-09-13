@@ -83,7 +83,7 @@ class Xest implements TestProvider {
     return skip;
 }
 
-private class SkippingTestProvider implements TestProvider {
+private final class SkippingTestProvider implements TestProvider {
   private final group:Group;
 
   public function new(group:Group) {

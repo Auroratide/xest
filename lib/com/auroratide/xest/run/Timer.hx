@@ -15,26 +15,26 @@ abstract Milliseconds(Float) from Float to Float {
   }
 
   @:op(A == B)
-  public function equals(other:Float):Bool
+  public function equals(other)
     return this == other;
 
   @:op(A < B)
-  public function lessThan(other:Float):Bool
+  public function lessThan(other)
     return this < other;
 
   @:op(A <= B)
-  public function lessThanOrEqualTo(other:Float):Bool
+  public function lessThanOrEqualTo(other)
     return this < other || this == other;
   
   @:op(A > B)
-  public function greaterThan(other:Float):Bool
+  public function greaterThan(other)
     return !(this <= other);
   
   @:op(A >= B)
-  public function greaterThanOrEqualTo(other:Float):Bool
+  public function greaterThanOrEqualTo(other)
     return !(this < other);
   
   @:op(A + B)
-  public function plus(other:Float):Milliseconds
+  public function plus(other):Milliseconds
     return this + other;
 }

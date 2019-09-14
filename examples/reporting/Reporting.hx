@@ -24,8 +24,7 @@ class Reporting extends Xest {
     });
 
     example("it reports summary stats", () -> {
-      suite.run(reporter);
-      reporter.summary();
+      reporter.summary(suite.run());
 
       expect(printer.contains("Total tests: 3"));
       expect(printer.contains("Passed : 1"));
@@ -34,12 +33,11 @@ class Reporting extends Xest {
     });
 
     example("it reports test failures", () -> {
-      suite.run(reporter);
-      reporter.summary();
+      reporter.summary(suite.run());
 
       expect(printer.contains("Expected 1 to equal 2"));
       expect(printer.contains("Called from expectation"));
-      expect(printer.contains("line 22"));
+      expect(printer.contains("line 23"));
     });
   }
 }

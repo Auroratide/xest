@@ -1,5 +1,6 @@
 package examples.reporting;
 
+import com.auroratide.xest.run.ResultSet;
 import com.auroratide.xest.reporting.Reporter;
 import com.auroratide.xest.Xest;
 
@@ -27,7 +28,7 @@ class SampleTestSuite {
     });
   }
 
-  public function run(reporter:Reporter) {
-    xest.run(reporter);
+  public function run():ResultSet {
+    return xest.run();
   }
 }

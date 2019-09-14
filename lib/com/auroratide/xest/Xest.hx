@@ -5,6 +5,7 @@ import haxe.macro.Context;
 import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.run.Test;
 import com.auroratide.xest.run.Group;
+import com.auroratide.xest.run.ResultSet;
 import com.auroratide.xest.run.SkippedTest;
 import com.auroratide.xest.run.TestProvider;
 import com.auroratide.xest.reporting.Reporter;
@@ -23,10 +24,10 @@ class Xest implements TestProvider {
 
   public var skip(get, never):TestProvider;
 
-  public final function run(reporter:Reporter) {
+  public final function run():ResultSet {
     final classpath = this.getClass().getClassName().split(".");
     __group.name = classpath[classpath.length - 1];
-    reporter.report(__group.run());
+    return __group.run();
   }
 
   public final function example(name:String, f:() -> Void) {

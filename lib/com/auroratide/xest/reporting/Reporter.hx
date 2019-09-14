@@ -6,7 +6,6 @@ using Lambda;
 using com.auroratide.xest.reporting.Reporter.PrinterExtensions;
 
 class Reporter {
-  private final sets:Array<ResultSet> = [];
   private final printer:Printer;
 
   public function new(printer:Printer) {
@@ -14,18 +13,14 @@ class Reporter {
   }
 
   public function report(set:ResultSet) {
-    sets.push(set);
-
     printer.newline();
     printer.set(set);
   }
 
-  public function summary() {
-    final all = new ResultSet("", [], sets);
-
+  public function summary(set:ResultSet) {
     printer.newline().title("-------------------------------------------------------------------------------").newline().end();
-    printer.failures(all, -2);
-    printer.stats(all);
+    printer.failures(set, -2);
+    printer.stats(set);
 
     printer.newline();
   }

@@ -49,28 +49,27 @@ final class Registrar {
       kind: FFun({
         args: [],
         ret: macro:Void,
-        expr: {
-          pos: Context.currentPos(),
-          expr: runFunction()
-        }
+        expr: runFunction()
       }),
     };
   }
 
-  private static inline function runFunction():ExprDef {
-    return EBlock([
-      macro final reporter = new com.auroratide.xest.reporting.Reporter(new com.auroratide.xest.reporting.ConsolePrinter())
-    ].concat(classes.map(c -> switch(c) {
+  private static inline function runFunction():Expr {
+    final block = [];
+    block.push(macro final reporter = new com.auroratide.xest.reporting.Reporter(new com.auroratide.xest.reporting.ConsolePrinter()));
+    block.push(macro final results = []);
+    classes.iter(c -> switch(c) {
       case TInst(ref, _):
-        final className = {
-          expr: EConst(CString(ref.toString())),
-          pos: Context.currentPos()
-        };
-        macro Type.createInstance(Type.resolveClass($className), []).run(reporter);
+        block.push(macro results.push(Type.createInstance(Type.resolveClass($v{ref.toString()}), []).run()));
+        block.push(macro reporter.report(results[results.length - 1]));
       case _:
-        macro null; // do nothing
-    })).concat([
-      macro reporter.summary()
-    ]));
+        block.push(macro null); // do nothing
+    });
+
+    block.push(macro final overallResult = new com.auroratide.xest.run.ResultSet("", [], results));
+    block.push(macro reporter.summary(overallResult));
+    block.push(macro if(overallResult.result.match(com.auroratide.xest.run.Result.Failure())) Sys.exit(1));
+
+    return macro $b{block};
   }
 }

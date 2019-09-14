@@ -15,45 +15,7 @@ final class Registrar {
 
   public static macro function register():Array<Field> {
     if(!runnerRegistered) {
-      Context.onAfterTyping(arr -> {
-        if(!runnerBuilt) {
-          Context.defineType({
-            name: RUNNER_CLASS,
-            pack: RUNNER_PACKAGE.split("."),
-            fields: [{
-              name: "run",
-              access: [APublic],
-              kind: FFun({
-                args: [],
-                ret: macro:Void,
-                expr: {
-                  expr: EBlock([
-                    macro final reporter = new com.auroratide.xest.reporting.Reporter(new com.auroratide.xest.reporting.Printer())
-                  ].concat(classes.map(c -> switch(c) {
-                    case TInst(ref, _):
-                      final className = {
-                        expr: EConst(CString(ref.toString())),
-                        pos: Context.currentPos()
-                      };
-                      macro Type.createInstance(Type.resolveClass($className), []).run(reporter);
-                    case _:
-                      macro null; // do nothing
-                  })).concat([
-                    macro reporter.summary()
-                  ])),
-                  pos: Context.currentPos()
-                }
-              }),
-              pos: Context.currentPos()
-            }],
-            kind: TDClass(null, [], false),
-            pos: Context.currentPos()
-          });
-
-          runnerBuilt = true;
-        }
-      });
-
+      Context.onAfterTyping(arr -> buildRunner());
       runnerRegistered = true;
     }
 
@@ -63,5 +25,52 @@ final class Registrar {
 
   public static function runner() {
     return Type.createEmptyInstance(Type.resolveClass('$RUNNER_PACKAGE.$RUNNER_CLASS'));
+  }
+
+  private static inline function buildRunner() {
+    if(!runnerBuilt) {
+      Context.defineType({
+        name: RUNNER_CLASS,
+        pack: RUNNER_PACKAGE.split('.'),
+        kind: TDClass(null, [], false),
+        pos: Context.currentPos(),
+        fields: [runField()]
+      });
+
+      runnerBuilt = true;
+    }
+  }
+
+  private static inline function runField():Field {
+    return {
+      name: "run",
+      access: [APublic],
+      pos: Context.currentPos(),
+      kind: FFun({
+        args: [],
+        ret: macro:Void,
+        expr: {
+          pos: Context.currentPos(),
+          expr: runFunction()
+        }
+      }),
+    };
+  }
+
+  private static inline function runFunction():ExprDef {
+    return EBlock([
+      macro final reporter = new com.auroratide.xest.reporting.Reporter(new com.auroratide.xest.reporting.Printer())
+    ].concat(classes.map(c -> switch(c) {
+      case TInst(ref, _):
+        final className = {
+          expr: EConst(CString(ref.toString())),
+          pos: Context.currentPos()
+        };
+        macro Type.createInstance(Type.resolveClass($className), []).run(reporter);
+      case _:
+        macro null; // do nothing
+    })).concat([
+      macro reporter.summary()
+    ]));
   }
 }

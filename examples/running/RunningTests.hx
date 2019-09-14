@@ -36,7 +36,7 @@ class RunningTests extends Xest {
 
       The `describe` method allows you to group related tests together. Simply
       provide it a name for the group and a callback that contains tests within
-      it.
+      it. Alternatively, you may use `context` or `scenario` as aliases.
      */
     describe("Aliases", () -> {
 
@@ -44,9 +44,7 @@ class RunningTests extends Xest {
         Aliases!
 
         Tests can also be declared with `it` or `test`, as they may be more
-        familiar than `example`. That said, I'd like to encourage you to try
-        and think of tests as examples for your code and see where it takes
-        you.
+        familiar than `example`.
        */
       it("allows 'it' to define tests also", () -> {
         expect(true);
@@ -54,6 +52,14 @@ class RunningTests extends Xest {
 
       test("allows 'test' to define tests also", () -> {
         expect(true);
+      });
+
+      context("allows 'context' to define a group also", () -> {
+        example("", () -> expect(true));
+      });
+
+      scenario("allows 'scenario' to define a group also", () -> {
+        example("", () -> expect(true));
       });
     });
 

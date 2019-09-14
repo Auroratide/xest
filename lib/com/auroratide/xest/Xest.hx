@@ -63,6 +63,12 @@ class Xest implements TestProvider {
   public final inline function test(name:String, f:() -> Void)
     example(name, f);
 
+  public final inline function context(name:String, f:() -> Void)
+    describe(name, f);
+
+  public final inline function scenario(name:String, f:() -> Void)
+    describe(name, f);
+
   public final function beforeEach(f:() -> Void)
     before(f);
   

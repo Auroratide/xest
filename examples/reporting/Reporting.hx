@@ -39,6 +39,7 @@ class Reporting extends Xest {
 
       expect(printer.contains("Expected 1 to equal 2"));
       expect(printer.contains("Called from expectation"));
+      expect(printer.contains("line 22"));
     });
   }
 }
@@ -47,30 +48,6 @@ class Reporting extends Xest {
 
 private class XestProxy extends Xest {
   public function new() {}
-}
-
-private class SampleTestSuite {
-  private final xest:Xest;
-
-  public function new(xest:Xest) {
-    this.xest = xest;
-
-    xest.example("passes", () -> {
-      xest.expect(1 == 1);
-    });
-
-    xest.example("fails", () -> {
-      xest.expect(1 == 2);
-    });
-
-    xest.skip.example("skipped", () -> {
-      xest.expect(1 == 1);
-    });
-  }
-
-  public function run(reporter:Reporter) {
-    xest.run(reporter);
-  }
 }
 
 private class StringPrinter implements Printer {

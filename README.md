@@ -24,8 +24,8 @@ class MyTest extends Xest {
 * [Setup](examples/running/hooks/BeforeEach.hx) and [teardown](examples/running/hooks/AfterEach.hx) test hooks
 * [Skipping tests](examples/running/RunningTests.hx)
 * [Different kinds of assertions with a single function](examples/expectations/Expectations.hx)
-* Test reporting (including elapsed time for longer tests)
-* Failure reporting (including line numbers for debugging)
+* [Test reporting](examples/reporting/Reporting.hx) (including elapsed time for longer tests)
+* [Failure reporting](examples/reporting/Reporting.hx) (including line numbers for debugging)
 
 The following features are planned for the 1.0.0 release:
 

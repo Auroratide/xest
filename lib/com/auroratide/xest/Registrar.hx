@@ -59,7 +59,7 @@ final class Registrar {
 
   private static inline function runFunction():ExprDef {
     return EBlock([
-      macro final reporter = new com.auroratide.xest.reporting.Reporter(new com.auroratide.xest.reporting.Printer())
+      macro final reporter = new com.auroratide.xest.reporting.Reporter(new com.auroratide.xest.reporting.ConsolePrinter())
     ].concat(classes.map(c -> switch(c) {
       case TInst(ref, _):
         final className = {

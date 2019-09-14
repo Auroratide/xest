@@ -70,5 +70,25 @@ class AfterEach extends Xest {
         m = 6;
       });
     });
+
+    describe("Alias", () -> {
+      var m = 6;
+
+      afterEach(() -> {
+        m = 6;
+      });
+
+      example("can also use afterEach", () -> {
+        expect(n + m == 11);
+        n = 0;
+        m = 0;
+      });
+
+      example("can also use afterEach", () -> {
+        expect(n + m == 11);
+        n = 0;
+        m = 0;
+      });
+    });
   }
 }

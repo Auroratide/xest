@@ -66,23 +66,13 @@ class RunningTests extends Xest {
     /**
       Skipping tests!
 
-      You can skip a test by prepending it with `skip`, `ignore`, or `disable`.
-      The test will not be run, but it will be reported in the end as being
-      skipped to remind you to unskip it in the future.
+      You can skip a test by prepending it with `skip`. The test will not be
+      run, but it will be reported in the end as being skipped to remind you
+      to unskip it in the future.
      */
     describe("Skipping", () -> {
       skip.example("using skip", () -> {
         throw "Test should have been skipped, but it ran";
-      });
-
-      describe("Aliases", () -> {
-        ignore.example("using ignore", () -> {
-          throw "Test should have been skipped, but it ran";
-        });
-
-        disable.example("using disable", () -> {
-          throw "Test should have been skipped, but it ran";
-        });
       });
     });
   }

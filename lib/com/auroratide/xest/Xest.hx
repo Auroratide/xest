@@ -22,8 +22,6 @@ class Xest implements TestProvider {
   private var __group:Group = new Group("");
 
   public var skip(get, never):TestProvider;
-  public var ignore(get, never):TestProvider;
-  public var disable(get, never):TestProvider;
 
   public final function run(reporter:Reporter) {
     final classpath = this.getClass().getClassName().split(".");
@@ -81,12 +79,6 @@ class Xest implements TestProvider {
   private final function get_skip():TestProvider {
     return new SkippingTestProvider(__group);
   }
-
-  private final function get_ignore():TestProvider
-    return skip;
-
-  private final function get_disable():TestProvider
-    return skip;
 }
 
 private final class SkippingTestProvider implements TestProvider {

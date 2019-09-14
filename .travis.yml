@@ -1,0 +1,5 @@
+language: haxe
+haxe:
+  - "4.0.0-rc.5"
+hxml:
+  - examples/run.hxml

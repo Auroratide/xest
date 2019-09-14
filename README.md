@@ -1,4 +1,4 @@
-# xest
+# xest &nbsp; ![Build Status](https://travis-ci.org/Auroratide/xest.svg?branch=master)
 
 > xest is prior to 1.0.0 release, and hence it's API is very unstable. Basically, that means things are gonna change a lot! New features will be added, old features will improve, etc. But feel free to give it a spin and provide feedback!
 

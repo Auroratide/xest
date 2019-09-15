@@ -3,6 +3,7 @@ package com.auroratide.xest;
 import haxe.macro.Expr;
 import haxe.macro.Context;
 import com.auroratide.xest.expect.Expectation;
+import com.auroratide.xest.stub.OngoingStubbing;
 import com.auroratide.xest.run.Test;
 import com.auroratide.xest.run.Group;
 import com.auroratide.xest.run.ResultSet;
@@ -54,6 +55,18 @@ class Xest implements TestProvider {
 
   public final macro function expect(context, e:Expectation):Expr {
     return e.evaluate(Context.currentPos().toLocation());
+  }
+
+  public final macro function calling<T>(context, e:ExprOf<T>):ExprOf<OngoingStubbing<T>> {
+    switch(e.expr) {
+      case ECall(field, args): return switch(field.expr) {
+        case EField(obj, method):
+          return macro $obj.xest.stubs.get($v{method}).with();
+        case _: macro null;
+      }
+      case _:
+        return macro null;
+    };
   }
 
   public final inline function it(name:String, f:() -> Void)

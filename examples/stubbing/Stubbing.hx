@@ -9,7 +9,7 @@ class Stubbing extends Xest {
     example("stubbing a method with no arguments", () -> {
       final sample = new SampleClassFake();
 
-      calling(sample.noArgs()).returns(2);
+      stub(sample.noArgs()).toReturn(2);
 
       expect(sample.noArgs() == 2);
     });

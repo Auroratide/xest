@@ -7,7 +7,7 @@ class OngoingStubbing<T> {
     this.actions = actions;
   }
 
-  public function returns(r:T):OngoingStubbing<T> {
+  public function toReturn(r:T):OngoingStubbing<T> {
     actions.push(r);
     return this;
   }

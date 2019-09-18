@@ -58,7 +58,7 @@ class Xest implements TestProvider {
     return e.evaluate(Context.currentPos().toLocation());
   }
 
-  public final macro function calling<T>(context, e:MethodCall<T>):ExprOf<OngoingStubbing<T>> {
+  public final macro function stub<T>(context, e:MethodCall<T>):ExprOf<OngoingStubbing<T>> {
     return e.stub();
   }
 

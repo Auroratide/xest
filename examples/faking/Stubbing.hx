@@ -1,4 +1,4 @@
-package examples.stubbing;
+package examples.faking;
 
 import com.auroratide.xest.Xest;
 import com.auroratide.xest.fake.Fake;
@@ -16,7 +16,7 @@ class Stubbing extends Xest {
   }
 }
 
-private class SampleClassFake extends examples.stubbing.SampleClass implements Fake {
+private class SampleClassFake extends SampleClass implements Fake {
   public final xest:Proxy = new Proxy();
 
   public function new() super();

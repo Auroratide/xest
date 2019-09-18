@@ -1,4 +1,4 @@
-package examples.stubbing;
+package examples.faking;
 
 class SampleClass {
   public function new() {}

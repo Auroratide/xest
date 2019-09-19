@@ -11,6 +11,7 @@ import com.auroratide.xest.run.ResultSet;
 import com.auroratide.xest.run.SkippedTest;
 import com.auroratide.xest.run.TestProvider;
 import com.auroratide.xest.reporting.Reporter;
+import com.auroratide.xest.verify.Verifier;
 
 using Lambda;
 using Type;
@@ -60,6 +61,10 @@ class Xest implements TestProvider {
 
   public final macro function stub<T>(context, e:MethodCall<T>):ExprOf<OngoingStubbing<T>> {
     return e.stub();
+  }
+
+  public final macro function verify<T>(context, e:MethodCall<T>):ExprOf<Verifier> {
+    return e.verifier();
   }
 
   public final inline function it(name:String, f:() -> Void)

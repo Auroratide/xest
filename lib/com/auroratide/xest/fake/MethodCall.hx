@@ -1,6 +1,7 @@
 package com.auroratide.xest.fake;
 
 import com.auroratide.xest.stub.OngoingStubbing;
+import com.auroratide.xest.verify.Verifier;
 import haxe.macro.Expr;
 
 abstract MethodCall<T>(ExprOf<T>) from ExprOf<T> to ExprOf<T> {
@@ -10,6 +11,10 @@ abstract MethodCall<T>(ExprOf<T>) from ExprOf<T> to ExprOf<T> {
 
   public inline function stub():ExprOf<OngoingStubbing<T>> {
     return macro $fake.xest.stubs.get($v{method}).with();
+  }
+
+  public inline function verifier():ExprOf<Verifier> {
+    return macro new com.auroratide.xest.verify.Verifier($fake.xest.calls, $v{method});
   }
 
   private function get_fake():ExprOf<Fake> {

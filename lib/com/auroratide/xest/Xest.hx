@@ -60,11 +60,11 @@ class Xest implements TestProvider {
   }
 
   public final macro function stub<T>(context, e:MethodCall<T>):ExprOf<OngoingStubbing<T>> {
-    return e.stub();
+    return macro ${e.fake}.xest.stubs.get($v{e.method}).with();
   }
 
   public final macro function verify<T>(context, e:MethodCall<T>):ExprOf<Verifier> {
-    return e.verifier();
+    return macro new com.auroratide.xest.verify.Verifier(${e.fake}.xest.calls, $v{e.method});
   }
 
   public final inline function it(name:String, f:() -> Void)

@@ -5,6 +5,7 @@ import haxe.macro.Context;
 import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.stub.OngoingStubbing;
 import com.auroratide.xest.fake.MethodCall;
+import com.auroratide.xest.fake.FakeTypeBuilder;
 import com.auroratide.xest.run.Test;
 import com.auroratide.xest.run.Group;
 import com.auroratide.xest.run.ResultSet;
@@ -57,6 +58,12 @@ class Xest implements TestProvider {
 
   public final macro function expect(context, e:Expectation):Expr {
     return e.evaluate(Context.currentPos().toLocation());
+  }
+
+  public final macro function fake<T>(context, e:ExprOf<Class<T>>):ExprOf<T> {
+    final fullClassName = FakeTypeBuilder.define(Context.getType(e.toString()).getClass());
+
+    return macro Type.createInstance(Type.resolveClass($v{fullClassName}), []);
   }
 
   public final macro function stub<T>(context, e:MethodCall<T>):ExprOf<OngoingStubbing<T>> {

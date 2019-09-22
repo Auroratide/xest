@@ -21,5 +21,13 @@ class VerifyingInteractions extends Xest {
         throw "Should have failed verification, but it did not.";
       } catch(e:VerificationFailure) {}
     });
+
+    example("verifying a method with one argument", () -> {
+      final sample = fake(SampleClass);
+
+      sample.oneArg(1);
+
+      verify(sample.oneArg(1)).wasCalled();
+    });
   }
 }

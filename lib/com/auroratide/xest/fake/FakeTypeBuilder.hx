@@ -16,8 +16,18 @@ class FakeTypeBuilder {
       final name = c.name;
       final pack = c.pack;
       final fields = c.fields.get().map(f -> {
-        final ret = switch(f.type) {
-          case TFun(_, r): r.toComplexType();
+        var ret;
+        var args;
+        switch(f.type) {
+          case TFun(as, r):
+            ret = r.toComplexType();
+            args = as.map(a -> ({
+              type: a.t.toComplexType(),
+              opt: a.opt,
+              name: a.name,
+              meta: null,
+              value: null
+            }));
           case _: throw "idk what happened";
         };
         
@@ -27,7 +37,7 @@ class FakeTypeBuilder {
           pos: f.pos,
           kind: FFun({
             ret: ret,
-            args: [],
+            args: args,
             expr: macro return xest.call($v{f.name})
           })
         };

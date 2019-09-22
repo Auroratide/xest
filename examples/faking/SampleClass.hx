@@ -10,4 +10,8 @@ class SampleClass {
   public function oneArg(n:Int):Int {
     return n;
   }
+
+  public function twoArgs(n:Int, s:String):Int {
+    return n + s.length;
+  }
 }

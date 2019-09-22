@@ -10,7 +10,7 @@ abstract MethodCall<T>(ExprOf<T>) from ExprOf<T> to ExprOf<T> {
   private function get_fake():ExprOf<Fake> {
     return switch(this.expr) {
       case ECall(field, _): return switch(field.expr) {
-        case EField(f, _): f;
+        case EField(f, _): macro cast(${f}, com.auroratide.xest.fake.Fake);
         case _: null;
       };
       case _: null;

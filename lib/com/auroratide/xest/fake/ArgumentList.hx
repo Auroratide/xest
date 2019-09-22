@@ -1,4 +1,4 @@
-package com.auroratide.xest.stub;
+package com.auroratide.xest.fake;
 
 using Lambda;
 

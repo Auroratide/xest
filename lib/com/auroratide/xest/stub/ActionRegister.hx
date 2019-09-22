@@ -1,5 +1,7 @@
 package com.auroratide.xest.stub;
 
+import com.auroratide.xest.fake.ArgumentList;
+
 abstract ActionRegister<T>(Map<ArgumentList, Array<T>>) {
   public inline function new() this = [];
 

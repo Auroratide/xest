@@ -71,7 +71,7 @@ class Xest implements TestProvider {
   }
 
   public final macro function verify<T>(context, e:MethodCall<T>):ExprOf<Verifier> {
-    return macro new com.auroratide.xest.verify.Verifier(${e.fake}.xest.calls, $v{e.method});
+    return macro new com.auroratide.xest.verify.Verifier(${e.fake}.xest.calls, $v{e.method}, [$a{e.args}]);
   }
 
   public final inline function it(name:String, f:() -> Void)

@@ -1,5 +1,7 @@
 package com.auroratide.xest.stub;
 
+import com.auroratide.xest.fake.ArgumentList;
+
 class Stub<T> {
   private final actions:ActionRegister<T> = new ActionRegister<T>();
 

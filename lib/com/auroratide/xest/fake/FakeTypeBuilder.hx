@@ -38,7 +38,7 @@ class FakeTypeBuilder {
           kind: FFun({
             ret: ret,
             args: args,
-            expr: macro return xest.call($v{f.name})
+            expr: macro return xest.call($v{f.name}, [$a{args.map(a -> macro $i{a.name})}])
           })
         };
       });

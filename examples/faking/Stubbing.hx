@@ -18,7 +18,9 @@ class Stubbing extends Xest {
 
     example("stubbing a method with one argument", () -> {
       stub(sample.oneArg(1)).toReturn(2);
+      stub(sample.oneArg(2)).toReturn(3);
 
+      expect(sample.oneArg(2) == 3);
       expect(sample.oneArg(1) == 2);
     });
   }

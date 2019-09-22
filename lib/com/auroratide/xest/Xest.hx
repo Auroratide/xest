@@ -67,7 +67,7 @@ class Xest implements TestProvider {
   }
 
   public final macro function stub<T>(context, e:MethodCall<T>):ExprOf<OngoingStubbing<T>> {
-    return macro ${e.fake}.xest.stubs.get($v{e.method}).with();
+    return macro ${e.fake}.xest.stubs.get($v{e.method}).with([$a{e.args}]);
   }
 
   public final macro function verify<T>(context, e:MethodCall<T>):ExprOf<Verifier> {

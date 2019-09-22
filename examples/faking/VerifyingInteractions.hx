@@ -12,11 +12,11 @@ class VerifyingInteractions extends Xest {
     });
 
     example("verifying methods", () -> {
-      sample.noArgs();
+      sample.voidMethod();
       sample.oneArg(1);
       sample.twoArgs(1, "xest");
 
-      verify(sample.noArgs()).wasCalled();
+      verify(sample.voidMethod()).wasCalled();
       verify(sample.oneArg(1)).wasCalled();
       verify(sample.twoArgs(1, "xest")).wasCalled();
     });

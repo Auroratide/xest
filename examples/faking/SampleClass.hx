@@ -3,6 +3,8 @@ package examples.faking;
 class SampleClass {
   public function new() {}
 
+  public function voidMethod():Void {}
+
   public function noArgs():Int {
     return 1;
   }

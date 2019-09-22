@@ -9,21 +9,26 @@ abstract Expectation(ExprOf<Bool>) to ExprOf<Bool> {
   public inline function evaluate(location:Location) {
     final file = { expr: EConst(CString(location.file.toString())), pos: Context.currentPos() };
     final line = { expr: EConst(CInt('${location.range.start.line}')), pos: Context.currentPos() };
-    return macro if(!$this) throw new com.auroratide.xest.expect.ExpectationFailure(${message()}, $file, $line);
-  }
 
-  public inline function message():ExprOf<String> {
     return switch(this.expr) {
       case EBinop(OpEq, lhs, rhs):
-        macro 'Expected ${lhs.toString()} to equal ${rhs.toString()}\n\n' +
-          'Expected: ' + $rhs + '\n' +
-          'Actual  : ' + $lhs;
+        final block = [];
+        block.push(macro final l = $lhs);
+        block.push(macro final r = $rhs);
+        block.push(macro if(!(l == r)) throw new com.auroratide.xest.expect.ExpectationFailure('Expected ${lhs.toString()} to equal ${rhs.toString()}\n\n' +
+          'Expected: ' + r + '\n' +
+          'Actual  : ' + l, $file, $line));
+        return macro $b{block};
       case EBinop(OpNotEq, lhs, rhs):
-        macro 'Expected ${lhs.toString()} to not equal ${rhs.toString()}\n\n' +
-          'Expected: ' + $rhs + '\n' +
-          'Actual  : ' + $lhs;
+        final block = [];
+        block.push(macro final l = $lhs);
+        block.push(macro final r = $rhs);
+        block.push(macro if(!(l != r)) throw new com.auroratide.xest.expect.ExpectationFailure('Expected ${lhs.toString()} to equal ${rhs.toString()}\n\n' +
+          'Expected: ' + r + '\n' +
+          'Actual  : ' + l, $file, $line));
+        return macro $b{block};
       case _:
-        macro 'Expected ${this.toString()} to be true';
+        return macro if(!$this) throw new com.auroratide.xest.expect.ExpectationFailure('Expected ${this.toString()} to be true', $file, $line);
     }
   }
 }

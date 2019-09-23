@@ -1,7 +1,11 @@
 package examples.faking;
 
 class SampleClass {
-  public function new() {}
+  private final someField:Float;
+
+  public function new(someField:Float) {
+    this.someField = someField;
+  }
 
   public function voidMethod():Void {}
 

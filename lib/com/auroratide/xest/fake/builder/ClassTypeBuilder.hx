@@ -24,7 +24,7 @@ class ClassTypeBuilder extends TypeBuilder {
             meta: null,
             value: null
           }));
-        case _: throw "idk what happened";
+        case _: return null;
       };
       
       return {
@@ -39,6 +39,6 @@ class ClassTypeBuilder extends TypeBuilder {
           expr: macro return xest.call($v{f.name}, [$a{args.map(a -> macro $i{a.name})}])
         })
       };
-    });
+    }).filter(f -> f != null);
   }
 }

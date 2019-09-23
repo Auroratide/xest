@@ -36,5 +36,13 @@ class Stubbing extends Xest {
       expect(sample.twoArgs(2, "xest") == 3);
       expect(sample.twoArgs(1, "xest") == 2);
     });
+
+    example("stubbing works for interfaces", () -> {
+      final implementation = fake(SampleInterface);
+
+      stub(implementation.method(1)).toReturn("hello");
+
+      expect(implementation.method(1) == "hello");
+    });
   }
 }

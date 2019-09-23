@@ -5,7 +5,8 @@ import haxe.macro.Context;
 import com.auroratide.xest.expect.Expectation;
 import com.auroratide.xest.stub.OngoingStubbing;
 import com.auroratide.xest.fake.MethodCall;
-import com.auroratide.xest.fake.FakeTypeBuilder;
+import com.auroratide.xest.fake.builder.InterfaceTypeBuilder;
+import com.auroratide.xest.fake.builder.ClassTypeBuilder;
 import com.auroratide.xest.run.Test;
 import com.auroratide.xest.run.Group;
 import com.auroratide.xest.run.ResultSet;
@@ -61,7 +62,12 @@ class Xest implements TestProvider {
   }
 
   public final macro function fake<T>(context, e:ExprOf<Class<T>>):ExprOf<T> {
-    final fullClassName = FakeTypeBuilder.define(Context.getType(e.toString()).getClass());
+    final classType = Context.getType(e.toString()).getClass();
+    final fullClassName = if(classType.isInterface) {
+      new InterfaceTypeBuilder(classType).build();
+    } else {
+      new ClassTypeBuilder(classType).build();
+    }
 
     return macro Type.createInstance(Type.resolveClass($v{fullClassName}), []);
   }

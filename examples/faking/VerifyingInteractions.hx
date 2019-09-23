@@ -33,5 +33,13 @@ class VerifyingInteractions extends Xest {
       verify(sample.twoArgs(1, "is good")).wasCalled();
       throw "Should have failed verification, but it did not.";
     } catch(e:VerificationFailure) {});
+
+    example("verification works for interfaces", () -> {
+      final implementation = fake(SampleInterface);
+
+      implementation.method(1);
+
+      verify(implementation.method(1)).wasCalled();
+    });
   }
 }

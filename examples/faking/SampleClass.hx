@@ -17,6 +17,10 @@ class SampleClass {
     return n + s.length;
   }
 
+  public inline function inlineFunction():Int {
+    return 1;
+  }
+
   private function privateFunction():Int {
     return 1;
   }

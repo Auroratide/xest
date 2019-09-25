@@ -12,6 +12,9 @@ class ClassTypeBuilder extends TypeBuilder {
 
   override private function fields():Array<Field> {
     return classType.fields.get().map(f -> {
+      if(f.kind.match(FMethod(MethInline)))
+        return null;
+
       var ret;
       var args;
       switch(f.type) {

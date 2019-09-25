@@ -13,11 +13,7 @@ class SampleClass {
     return 1;
   }
 
-  public function oneArg(n:Int):Int {
-    return n;
-  }
-
-  public function twoArgs(n:Int, s:String):Int {
+  public function withArgs(n:Int, s:String):Int {
     return n + s.length;
   }
 }

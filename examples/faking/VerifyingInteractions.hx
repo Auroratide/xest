@@ -13,12 +13,10 @@ class VerifyingInteractions extends Xest {
 
     example("verifying methods", () -> {
       sample.voidMethod();
-      sample.oneArg(1);
-      sample.twoArgs(1, "xest");
+      sample.withArgs(1, "xest");
 
       verify(sample.voidMethod()).wasCalled();
-      verify(sample.oneArg(1)).wasCalled();
-      verify(sample.twoArgs(1, "xest")).wasCalled();
+      verify(sample.withArgs(1, "xest")).wasCalled();
     });
 
     example("verification fails when the call did not happen", () -> try {
@@ -27,10 +25,10 @@ class VerifyingInteractions extends Xest {
     } catch(e:VerificationFailure) {});
 
     example("verification depends on the arguments used", () -> try {
-      sample.twoArgs(1, "xest");
-      sample.twoArgs(2, "is good");
+      sample.withArgs(1, "xest");
+      sample.withArgs(2, "is good");
 
-      verify(sample.twoArgs(1, "is good")).wasCalled();
+      verify(sample.withArgs(1, "is good")).wasCalled();
       throw "Should have failed verification, but it did not.";
     } catch(e:VerificationFailure) {});
 

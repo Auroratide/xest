@@ -16,4 +16,8 @@ class SampleClass {
   public function withArgs(n:Int, s:String):Int {
     return n + s.length;
   }
+
+  private function privateFunction():Int {
+    return 1;
+  }
 }
